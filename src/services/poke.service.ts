@@ -11,7 +11,7 @@ export const pokeService = {
 
 _createPokemons()
 
-interface Pokemon {
+export interface Pokemon {
     _id: string,
     name: string,
     imgUrl: string,
@@ -20,7 +20,7 @@ interface Pokemon {
     stats: Stats
 }
 
-interface Stats {
+export interface Stats {
     hp: number,
     attack: number,
     defence: number,

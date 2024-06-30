@@ -1,11 +1,13 @@
-import { StyledContainer, StyledNavBar, StyledNavLink } from "./styles"
+import { Link } from "react-router-dom"
+import { StyledContainer, StyledLogo, StyledNavBar, StyledNavLink } from "./styles"
 
 const AppHeader = () => {
 
     return (
-
         <StyledContainer>
-            <img src="src/assets/images/pokelogo.svg" alt="" />
+            <Link to={'/'}>
+            <StyledLogo src="src/assets/images/pokelogo.svg" alt="" />
+            </Link>
             <StyledNavBar>
                 <StyledNavLink to={'/'}>Home</StyledNavLink>
                 <StyledNavLink to={'/favorites'}>Favorites</StyledNavLink>

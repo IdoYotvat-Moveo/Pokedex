@@ -1,8 +1,12 @@
+import Index from "../../components/Index/Index"
+
 const HomePage = () => {
 
 
 
-return <h1>hi from home page</h1>
+    return <>
+        <Index />
+    </>
 }
 
 
