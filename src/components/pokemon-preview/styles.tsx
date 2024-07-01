@@ -29,6 +29,8 @@ export const StyledPreviewName = styled.h2`
     font-size: 22px;
     font-weight: 400;
     line-height: 25.78px;    
+    bottom: 14px;
+    
 `
 
 export const StyledPreviewId = styled.h3`
@@ -37,4 +39,12 @@ font-weight: 400;
 line-height: 25.78px;
 text-align: left;
 
+`
+export const StyledPokePreviewImg = styled.img`
+width: 200px;
+margin: auto;
+`
+
+export const StyledImgNameSection = styled.section`
+    gap:50px;
 `

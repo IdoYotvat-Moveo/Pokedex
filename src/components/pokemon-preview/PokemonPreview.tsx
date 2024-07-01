@@ -1,5 +1,5 @@
+import { StyledPokePreviewImg, StyledPreview, StyledPreviewId, StyledPreviewName } from "./styles"
 import { Pokemon } from "../../services/poke.service"
-import { StyledPreview, StyledPreviewId, StyledPreviewName } from "./styles"
 
 type previewProps = {
     pokemon: Pokemon
@@ -8,13 +8,18 @@ type previewProps = {
 const PokemonPreview = ({ pokemon }: previewProps) => {
 
 
+    // console.log("src/assets/images/pokeexample.png");
+    
     return (
         <StyledPreview>
             <section className="flex justify-between">
                 <StyledPreviewId>#{pokemon._id}</StyledPreviewId>
-                <button><img src="src/assets/images/removePoke.svg" alt="" /></button>
+                <button><img src="src/assets/images/removePoke.svg" alt=""/></button>
             </section>
-            <StyledPreviewName>{pokemon.name}</StyledPreviewName>
+            <section className="flex column">
+                <StyledPokePreviewImg src={pokemon.imgUrl} alt="" />
+                <StyledPreviewName>{pokemon.name}</StyledPreviewName>
+            </section>
         </StyledPreview>
     )
 }

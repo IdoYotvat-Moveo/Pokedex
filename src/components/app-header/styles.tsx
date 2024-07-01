@@ -16,15 +16,10 @@ export const StyledContainer = styled.div`
 
 export const StyledLogo = styled.img`
   margin-inline-start: 106px;
-
   @media (max-width:714px){
       position: absolute;
       top: 23px;
       left: 38px
-
-
-      
-
     }
   `
 
