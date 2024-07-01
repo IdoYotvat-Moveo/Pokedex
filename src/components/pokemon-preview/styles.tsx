@@ -25,12 +25,11 @@ export const StyledPreview = styled.div`
 `
 
 export const StyledPreviewName = styled.h2`
+/* position: absolute; */
     text-align: center;
     font-size: 22px;
     font-weight: 400;
-    line-height: 25.78px;    
-    bottom: 14px;
-    
+    line-height: 25.78px;  
 `
 
 export const StyledPreviewId = styled.h3`
@@ -41,7 +40,7 @@ text-align: left;
 
 `
 export const StyledPokePreviewImg = styled.img`
-width: 200px;
+width: 180px;
 margin: auto;
 `
 

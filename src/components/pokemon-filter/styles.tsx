@@ -4,7 +4,8 @@ import styled from "styled-components";
 export const StyledForm = styled.form`
     /* margin-inline-start: 428px ; */
     margin-block-start: 57px;
-    margin-inline-start: 29vw ;
+    margin-bottom: 20px;
+    /* margin-inline-start: 29vw ; */
     
     @media (max-width:714px){
         margin-inline-start: 110px ;
@@ -26,6 +27,7 @@ opacity: 0px;
 margin-inline-end:6px;
 padding-inline-start: 10px;
 `
+
 
 export const StyledSearchbutton = styled.button`
 width: 87px;
