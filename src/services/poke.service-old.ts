@@ -33,7 +33,7 @@ export interface Stats {
 async function query(): Promise<Pokemon[]> {
     try {
         const pokemons = await storageService.query<Pokemon>(POKE_DB)
-        return pokemons;
+        return pokemons
     } catch (err: any) {
         console.error('Query -> Had issues querying pokemons', err)
         throw new Error(err)

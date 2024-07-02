@@ -3,8 +3,8 @@ import { Filter, pokeService } from "../../services/poke.service"
 import { useEffect, useRef, useState } from "react"
 
 interface FilterProps {
-    filterBy: Filter;
-    onSetFilter: (filterBy: Filter) => void;
+    filterBy: Filter
+    onSetFilter: (filterBy: Filter) => void
 }
 
 const PokemonFilter = ({ filterBy, onSetFilter }: FilterProps) => {
@@ -48,7 +48,7 @@ const PokemonFilter = ({ filterBy, onSetFilter }: FilterProps) => {
                 <StyledSearchbutton>Search</StyledSearchbutton>
             </StyledForm>
         </div>
-    );
-};
+    )
+}
 
-export default PokemonFilter;
+export default PokemonFilter

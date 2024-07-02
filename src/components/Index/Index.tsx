@@ -9,7 +9,6 @@ const Index = () => {
     const [page, setPage] = useState(1)
     const [filterBy, setFilterBy] = useState<Filter>(pokeService.getDefaultFilter())
 
-
     useEffect(() => {
         if (filterBy.text) {
             loadFilteredPokemons()
@@ -17,6 +16,12 @@ const Index = () => {
             loadPokemons()
         }
     }, [filterBy])
+
+    useEffect(() => {
+        if (page > 1) {
+            loadMorePokemons()
+        }
+    }, [page])
 
     async function loadPokemons() {
         try {
@@ -39,25 +44,29 @@ const Index = () => {
 
     function onSetFilter(filterBy: Filter): void {
         setFilterBy(filterBy)
+        setPage(1)
     }
 
-    async function loadMorePokemons(): Promise<void> {
-        setPage(prevPage => prevPage + 1)
+    async function loadMorePokemons() {
         try {
-            const newPokemons = await pokeService.getPokemons(24, page + 1)
-            setPokemons([...pokemons, ...newPokemons])
+            const newPokemons = await pokeService.getPokemons(25, page, filterBy)
+            setPokemons(prevPokemons => [
+                ...prevPokemons,
+                ...newPokemons.filter(newPokemon => !prevPokemons.some(pokemon => pokemon._id === newPokemon._id))
+            ])
         } catch (err) {
-            console.log('could not load more pokemons', err)
+            console.error('Could not load more pokemons:', err)
         }
     }
 
-
     function showLess(): void {
-        const remainingPokemons = pokemons.length - 24
+        const remainingPokemons = pokemons.length - 25
         setPokemons(pokemons.slice(0, remainingPokemons)) // Remove the last 24 pokemons
     }
 
-
+    const handleLoadMore = () => {
+        setPage(prevPage => prevPage + 1)
+    }
 
     return (
         <div>
@@ -67,10 +76,10 @@ const Index = () => {
                 <PokemonList
                     pokemons={pokemons} />
                 <StyledActionSection className="flex justify-center">
-                    {pokemons.length > 24 && (
+                    {pokemons.length > 25 && (
                         <LoadMoreButton onClick={showLess}>Show less</LoadMoreButton>
                     )}
-                    <LoadMoreButton onClick={loadMorePokemons}>Load more..</LoadMoreButton>
+                    <LoadMoreButton onClick={handleLoadMore}>Load more..</LoadMoreButton>
                 </StyledActionSection>
             </>}
         </div>

@@ -39,23 +39,26 @@ export const pokeService = {
     debounce
 }
 
-
 async function getPokemons(amount: number = 25, page: number = 1, filterBy: Filter = getDefaultFilter()): Promise<Pokemon[]> {
     const cachedPokemons = loadFromStorage<Pokemon[]>(POKE_DB) || []
     const startIndex = (page - 1) * amount
     const endIndex = startIndex + amount
+
     try {
-        //log startIndex
         let filteredPokemons = filterPokemons(cachedPokemons, filterBy)
-        if (filteredPokemons.length !== cachedPokemons.length || !cachedPokemons.length) {
+
+        // fetch new pokemons if filteredPokemons does not cover the range 
+        if (filteredPokemons.length < endIndex) {
             const response = await axios.get(`${BASE_URL}/pokemon?limit=${amount}&offset=${startIndex}`)
             const pokemonUrls = response.data.results.map((pokemon: BasicPokemonInfo) => pokemon.url)
             const pokemonPromises = pokemonUrls.map((url: string) => axios.get(url))
             const pokemonResponses = await Promise.all(pokemonPromises)
             const newPokemons = pokemonResponses.map(res => convertToPokemon(res.data))
 
-            const updatedPokemons = [...cachedPokemons, ...newPokemons]
-
+            const updatedPokemons = [
+                ...cachedPokemons,
+                ...newPokemons.filter(newPokemon => !cachedPokemons.some(cachedPokemon => cachedPokemon._id === newPokemon._id))
+            ]
             saveToStorage(POKE_DB, updatedPokemons)
             filteredPokemons = filterPokemons(updatedPokemons, filterBy)
         }
@@ -67,16 +70,16 @@ async function getPokemons(amount: number = 25, page: number = 1, filterBy: Filt
     }
 }
 
+
 async function getAllPokemonNames(): Promise<string[]> {
     try {
-        const response = await axios.get(`${BASE_URL}/pokemon?limit=1000`) // Adjust limit as needed
+        const response = await axios.get(`${BASE_URL}/pokemon?limit=1000`)
         return response.data.results.map((pokemon: any) => pokemon.name)
     } catch (error) {
         console.error('Error fetching Pokémon names:', error)
         throw error
     }
 }
-
 
 function filterPokemons(pokemons: Pokemon[], filterBy: Filter): Pokemon[] {
     let filteredPokemons = pokemons
@@ -85,11 +88,11 @@ function filterPokemons(pokemons: Pokemon[], filterBy: Filter): Pokemon[] {
         const regExp = new RegExp(filterBy.text, 'i')
         filteredPokemons = filteredPokemons.filter(pokemon => regExp.test(pokemon.name))
     }
+
     //todo future filtering
     // if (filterBy.id) {
     //     filteredPokemons = filteredPokemons.filter(pokemon => pokemon._id === filterBy.id?.toString())
     // }
-
     return filteredPokemons
 }
 
@@ -116,9 +119,6 @@ export async function getPokemonsByName(name: string): Promise<Pokemon[]> {
     }
 }
 
-
-
-
 async function getPokemonById(pokemonId: string): Promise<Pokemon> {
     try {
         const response = await axios.get(`${BASE_URL}/pokemon/${pokemonId}`)
@@ -132,6 +132,7 @@ async function getPokemonById(pokemonId: string): Promise<Pokemon> {
 
 
 function convertToPokemon(data: any): Pokemon {
+    //return only basic info
     return {
         _id: data.id.toString(),
         name: data.name,
@@ -146,6 +147,7 @@ async function convertToDetailedPokemon(data: any): Promise<Pokemon> {
         //handle description
         const descriptionResponse = await axios.get(descriptionUrl)
         const description = descriptionResponse.data.flavor_text_entries.find((entry: any) => entry.language.name === 'en').flavor_text
+        //fill in rest of information
         return {
             _id: data.id.toString(),
             name: data.name,
@@ -183,12 +185,10 @@ function loadFromStorage<T>(key: string): T | undefined {
 
 function debounce<T extends (...args: any[]) => void>(func: T, timeout = 300) {
     let timer: ReturnType<typeof setTimeout> | null
-
     return function (this: any, ...args: Parameters<T>) {
         if (timer) {
             clearTimeout(timer)
         }
-
         timer = setTimeout(() => {
             func.apply(this, args)
         }, timeout) as ReturnType<typeof setTimeout>

@@ -19,7 +19,7 @@ const PokemonDetails = () => {
             const pokemonFromParams = await pokeService.getPokemonById(pokemonId)
             setPokemon(pokemonFromParams)
         } catch (err) {
-            console.log('error loading pokemon', err);
+            console.log('error loading pokemon', err)
         }
     }
 
