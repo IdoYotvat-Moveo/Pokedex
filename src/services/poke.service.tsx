@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { PokemonType } from '../pages/detailed-page/styles'
 
 const POKE_DB = 'pokeDB'
 const BASE_URL = 'https://pokeapi.co/api/v2'
@@ -7,7 +8,7 @@ export interface Pokemon {
     _id: string,
     name: string,
     imgUrl: string,
-    type?: string[],
+    type?: PokemonType[],
     description?: string,
     stats: Stats,
     isFavorite?: boolean

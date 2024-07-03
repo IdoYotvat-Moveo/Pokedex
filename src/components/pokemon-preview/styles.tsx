@@ -8,22 +8,22 @@ interface CardProps {
 
 const sizeStyles = {
   small: `
-    width: 241px;
+    // width: 241px;
   `,
   medium:css `
-    width: 840px;
-    height:340px;
+    // width: 840px;
+    // height:340px;
     
   `,
   large: `
-    width: 950px;
+    // width: 950px;
   `,
 };
 
 export const StyledCard = styled.div<{ size: CardSize }>`
   background-color: #F7F7F9;
   padding: 10px;
-  ${(props) => sizeStyles[props.size]}
+  /* ${(props) => sizeStyles[props.size]} */
   height: 255px;
   border-radius: 9px;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.15));
@@ -70,4 +70,9 @@ margin: auto;
 
 export const StyledImgNameSection = styled.section`
     gap:50px;
+`
+
+//todo here
+export const StyledPreviewContainer = styled.div`
+  min-width: 240px;
 `

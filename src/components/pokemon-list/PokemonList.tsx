@@ -13,8 +13,8 @@ const PokemonList = ({ pokemons}: listProps) => {
         <StyledList className="flex wrap justify-center">
             {pokemons.map(pokemon => (
                 <li key={pokemon._id}>
-                    <Link to={`/pokemon/${pokemon._id}`}><PokemonPreview
-                     pokemon={pokemon} /></Link>
+                    <Link to={`/pokemon/${pokemon._id}`}><PokemonPreview pokemon={pokemon} />
+                     </Link>
                 </li>
             ))}
         </StyledList>
