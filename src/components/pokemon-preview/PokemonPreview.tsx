@@ -5,13 +5,12 @@ import deletePokebtn from '../../assets/images/removePoke.svg'
 type previewProps = {
     pokemon: Pokemon,
     children?: React.ReactNode
-    // size?:string
 }
 
 const PokemonPreview = ({ pokemon, children }: previewProps) => {
 
     return (
-        <PokemonCard size="small">
+        <PokemonCard>
             <StyledPreviewContainer>
                 <section className="flex justify-between">
                     <StyledPreviewId>#{pokemon._id}</StyledPreviewId>

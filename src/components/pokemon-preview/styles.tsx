@@ -1,13 +1,11 @@
 import styled from "styled-components"
 
 
-type CardSize = 'small' | 'medium' | 'large'
 interface CardProps {
-  size: CardSize;
   children: React.ReactNode;
 }
 
-export const StyledCard = styled.div<{ size: CardSize }>`
+export const StyledCard = styled.div`
   background-color: #F7F7F9;
   padding: 10px;
   border-radius: 9px;
@@ -35,9 +33,9 @@ export const StyledCard = styled.div<{ size: CardSize }>`
 
 `;
 
-export const PokemonCard: React.FC<CardProps> = ({ size, children }) => {
-  return <StyledCard size={size}>{children}</StyledCard>;
-};
+export const PokemonCard: React.FC<CardProps> = ( {children} ) => {
+  return <StyledCard>{children}</StyledCard>;
+}
 
 export const StyledPreviewName = styled.h2`
     text-align: center;

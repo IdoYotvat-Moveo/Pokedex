@@ -1,6 +1,8 @@
+import { StyledFavoritesTitle } from "./styles"
+
 const FavoritesPage = () => {
 
-    return <h1>hi from favorites page</h1>
+    return <StyledFavoritesTitle>No favorite Pokemons yet...</StyledFavoritesTitle>
 }
 
 export default FavoritesPage

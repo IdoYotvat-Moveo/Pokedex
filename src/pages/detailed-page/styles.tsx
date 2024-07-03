@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-
 const typeColors = {
     normal: '#A8A77A',
     fire: '#EE8130',
@@ -34,7 +33,6 @@ export const StyledDetailedContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin: auto;
-    /* width: 850px; */
 `
 
 export const StyledHomePageBtn = styled(Link)`
@@ -107,7 +105,6 @@ export const StyledPseudoElement = styled.div`
     
 `
 export const StyledDescription = styled.p`
-    /* width: 430px; */
     margin-block: 10px;
 `
 
@@ -130,7 +127,7 @@ export const StyledStats = styled.div`
     flex-direction: column;
     gap: 10px;
 
-    
+
 `
 export const StyledDetailedName = styled.h3`
     margin-block-end: 10px;

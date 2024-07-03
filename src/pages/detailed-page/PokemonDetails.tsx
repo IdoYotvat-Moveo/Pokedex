@@ -26,7 +26,7 @@ const PokemonDetails = () => {
     return (
         <StyledDetailedContainer>
             <StyledHomePageBtn to={'/'}>&#x2190; Home page</StyledHomePageBtn>
-            <PokemonCard size="medium">
+            <PokemonCard>
                 <StyledCardSection>
                     <StyledMainInfo>
                         <StyledPreviewId>#{pokemon._id}</StyledPreviewId>

@@ -71,7 +71,6 @@ async function getPokemons(amount: number = 25, page: number = 1, filterBy: Filt
     }
 }
 
-
 async function getAllPokemonNames(): Promise<string[]> {
     try {
         const response = await axios.get(`${BASE_URL}/pokemon?limit=1000`)
@@ -130,7 +129,6 @@ async function getPokemonById(pokemonId: string): Promise<Pokemon> {
         throw error
     }
 }
-
 
 function convertToPokemon(data: any): Pokemon {
     //return only basic info
