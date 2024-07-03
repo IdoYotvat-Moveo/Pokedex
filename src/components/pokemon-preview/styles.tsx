@@ -29,7 +29,8 @@ export const StyledCard = styled.div<{ size: CardSize }>`
         cursor: pointer;
     }
     @media (max-width:790px ){
-      margin-inline:20px;
+      margin-block-start: 20px;
+      margin-inline:50px;
    }
 
 `;

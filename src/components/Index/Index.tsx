@@ -77,7 +77,7 @@ const Index = () => {
                     pokemons={pokemons} />
                 <StyledActionSection className="flex justify-center">
                     {pokemons.length > 25 && (
-                        <LoadMoreButton onClick={showLess}>Show less</LoadMoreButton>
+                        <LoadMoreButton onClick={showLess}>Show less...</LoadMoreButton>
                     )}
                     <LoadMoreButton onClick={handleLoadMore}>Load more..</LoadMoreButton>
                 </StyledActionSection>

@@ -10,6 +10,9 @@ export const StyledContainer = styled.div`
 
     @media (max-width:714px){
       background-color: transparent;
+      display: flex;
+      justify-content: center;
+      /* margin-block-end: 10px; */
     }
 
     `
@@ -17,9 +20,12 @@ export const StyledContainer = styled.div`
 export const StyledLogo = styled.img`
   margin-inline-start: 106px;
   @media (max-width:714px){
-      position: absolute;
-      top: 23px;
-      left: 38px
+    /* position: absolute; */
+    top: 23px;
+    left: 50px;
+    margin: 0;
+    /* margin-inline-end: 20px; */
+    /* right: 100px; */
     }
   `
 

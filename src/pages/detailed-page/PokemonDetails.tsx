@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-// import favorites from '../../assets/images/favorites.svg'
 import { Pokemon, pokeService } from "../../services/poke.service"
 import { DescriptionStatsSection, StyledCardSection, StyledDescription, StyledDetailedContainer, StyledDetailedName, StyledHomePageBtn, StyledMainInfo, StyledPokeType, StyledPseudoElement, StyledSecondaryInfo, StyledStats, StyledSubStats, StyledTypeSection } from "./styles"
 import { PokemonCard, StyledPreviewId } from "../../components/pokemon-preview/styles"
@@ -23,17 +22,14 @@ const PokemonDetails = () => {
         }
     }
 
-
     if (!pokemon) return <div className="loader">Loading Pokemon...</div>
     return (
         <StyledDetailedContainer>
             <StyledHomePageBtn to={'/'}>&#x2190; Home page</StyledHomePageBtn>
-
             <PokemonCard size="medium">
                 <StyledCardSection>
                     <StyledMainInfo>
                         <StyledPreviewId>#{pokemon._id}</StyledPreviewId>
-                        {/* <img src={favorites} alt="" /> */}
                         <img src={pokemon.imgUrl} alt={pokemon.name} />
                         <StyledDetailedName>{pokemon.name}</StyledDetailedName>
                         <StyledTypeSection>{pokemon.type?.map(t => <StyledPokeType type={t} key={t}>{t}</StyledPokeType>)}</StyledTypeSection>

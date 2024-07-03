@@ -23,14 +23,11 @@ const typeColors = {
     fairy: '#D685AD',
 }
 
-
-
 export type PokemonType = keyof typeof typeColors;
 
 interface StyledPokeTypeProps {
     type: PokemonType;
 }
-
 
 export const StyledDetailedContainer = styled.div`
     display: flex;
@@ -42,8 +39,13 @@ export const StyledDetailedContainer = styled.div`
 
 export const StyledHomePageBtn = styled(Link)`
     margin-block: 40px;
+    margin-inline: 40px;
     align-self: flex-start;
     color: #020166;
+
+    @media (max-width:714px ){
+    display:none;
+   }
 `
 
 export const StyledTypeSection = styled.section`
@@ -86,6 +88,10 @@ export const DescriptionStatsSection = styled.section`
     display: flex;
     flex-direction: row;
     gap: 30px;
+    @media (max-width:400px ){
+       display:block;
+   }
+    
 `
 
 export const StyledPseudoElement = styled.div`
@@ -97,11 +103,9 @@ export const StyledPseudoElement = styled.div`
     @media (max-width:880px ){
         height: 1px;
         width: 100%;
-
    }
     
 `
-
 export const StyledDescription = styled.p`
     /* width: 430px; */
     margin-block: 10px;
@@ -116,11 +120,17 @@ padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 22px;
+
+    @media (max-width:400px ){
+       text-align: center;
+   }
 `
 export const StyledStats = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    
 `
 export const StyledDetailedName = styled.h3`
     margin-block-end: 10px;
