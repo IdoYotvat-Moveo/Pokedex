@@ -8,7 +8,7 @@ export const StyledForm = styled.form`
     /* margin-inline-start: 29vw ; */
     
     @media (max-width:714px){
-        margin-inline-start: 110px ;
+        /* margin-inline-start: 110px ; */
     }
 `
 

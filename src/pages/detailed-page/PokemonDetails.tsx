@@ -26,11 +26,11 @@ const PokemonDetails = () => {
 
     if (!pokemon) return <div className="loader">Loading Pokemon...</div>
     return (
-        <StyledDetailedContainer className="f">
+        <StyledDetailedContainer>
             <StyledHomePageBtn to={'/'}>&#x2190; Home page</StyledHomePageBtn>
 
             <PokemonCard size="medium">
-                <StyledCardSection className="flex">
+                <StyledCardSection>
                     <StyledMainInfo>
                         <StyledPreviewId>#{pokemon._id}</StyledPreviewId>
                         {/* <img src={favorites} alt="" /> */}

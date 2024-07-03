@@ -37,7 +37,7 @@ export const StyledDetailedContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin: auto;
-    width: 850px;
+    /* width: 850px; */
 `
 
 export const StyledHomePageBtn = styled(Link)`
@@ -50,6 +50,11 @@ export const StyledTypeSection = styled.section`
    display :flex ;
    gap: 15px;
    margin-block: 25px;
+
+   @media (max-width:880px ){
+    margin-block: 15px;
+    justify-content: center;
+   }
 `
 
 //todo here
@@ -57,6 +62,12 @@ export const StyledCardSection = styled.section`
    width: 840px;
    display :flex ;
    gap: 30px;
+   
+   @media (max-width:880px ){
+       flex-direction: column;
+       width: 100%;
+       gap: 0px;
+   }
 `
 
 export const StyledPokeType = styled.div<StyledPokeTypeProps>`
@@ -82,11 +93,17 @@ export const StyledPseudoElement = styled.div`
     height: 220px;
     margin-block: 10px;
     background-color: #D7D7D7;
+
+    @media (max-width:880px ){
+        height: 1px;
+        width: 100%;
+
+   }
     
 `
 
 export const StyledDescription = styled.p`
-    width: 430px;
+    /* width: 430px; */
     margin-block: 10px;
 `
 
