@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Boundaries, Coords, MapEssentials, Pokemon, pokeService } from "../../services/poke.service"
-import { DescriptionStatsSection, StyledCardSection, StyledDescription, StyledDetailedContainer, StyledDetailedName, StyledHomePageBtn, StyledMainInfo, StyledPokeType, StyledPseudoElement, StyledSecondaryInfo, StyledStats, StyledSubStats, StyledTypeSection } from "./styles"
+import { Boundaries, Coords, Pokemon, pokeService } from "../../services/poke.service"
+import { DescriptionStatsSection, MapContainer, StyledCardSection, StyledDescription, StyledDetailedContainer, StyledDetailedName, StyledDirectionsbtn, StyledHomePageBtn, StyledMainInfo, StyledPokeType, StyledPseudoElement, StyledSecondaryInfo, StyledStats, StyledSubStats, StyledTypeSection } from "./styles"
 import { PokemonCard, StyledPreviewId } from "../../components/pokemon-preview/styles"
 import Map from "../../components/map/Map"
 
@@ -13,17 +13,28 @@ const telAvivBoundaries: Boundaries = {
     west: 34.7610
 }
 
+const MoveoOfficeLocation: Coords = {
+    lat: 32.064771,
+    lng: 34.772383
+}
+
+
 const PokemonDetails = () => {
     const [pokemon, setPokemon] = useState<Pokemon | null>(null)
     const { pokemonId } = useParams<{ pokemonId: string }>()
-    const [currCenter, setCurrCenter] = useState<Coords>(pokeService.getRandomCenter(telAvivBoundaries))
-    const apiKey = import.meta.env.VITE_API_KEY
-    const zoom = 8
+    const [currCenter, setCurrCenter] = useState<Coords | null>(pokeService.getRandomCenter(telAvivBoundaries))
+    const [directions, setDirections] = useState<any>(null)
+
+    const zoom = 14
 
     useEffect(() => {
         if (pokemonId) loadPokemon(pokemonId)
 
     }, [pokemonId])
+
+    useEffect(() => {
+        setCurrCenter(pokeService.getRandomCenter(telAvivBoundaries))
+    }, [])
 
     async function loadPokemon(pokemonId: string) {
         try {
@@ -34,12 +45,31 @@ const PokemonDetails = () => {
         }
     }
 
+    const handleShowDirections = (): void => {
+        const directionsService = new google.maps.DirectionsService();
+        if (currCenter) {
+            directionsService.route(
+                {
+                    origin: new google.maps.LatLng(currCenter.lat, currCenter.lng), // Pokémon location
+                    destination: new google.maps.LatLng(MoveoOfficeLocation.lat, MoveoOfficeLocation.lng), // Office location
+                    travelMode: google.maps.TravelMode.WALKING, // Can be DRIVING, WALKING, BICYCLING, or TRANSIT
+                },
+                (result, status) => {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        setDirections(result); // Set directions data to state
+                    } else {
+                        console.error('Directions request failed due to ' + status);
+                    }
+                }
+            );
+        }
+
+    }
 
 
-    if (!pokemon) return <div className="loader">Loading Pokemon...</div>
+    if (!pokemon || !currCenter) return <div className="loader">Loading...</div>
     return (
         <>
-
             <StyledDetailedContainer>
                 <StyledHomePageBtn to={'/'}>&#x2190; Home page</StyledHomePageBtn>
                 <PokemonCard>
@@ -75,8 +105,11 @@ const PokemonDetails = () => {
                         </StyledSecondaryInfo>
                     </StyledCardSection>
                 </PokemonCard>
+                <StyledDirectionsbtn onClick={handleShowDirections}>show directions</StyledDirectionsbtn>
             </StyledDetailedContainer>
-            <Map apiKey={apiKey} center={currCenter} zoom={14} />
+            <MapContainer>
+                <Map directions={directions} MoveoOfficeLocation={MoveoOfficeLocation} customMarker={pokemon.imgUrl} center={currCenter} zoom={zoom} />
+            </MapContainer>
         </>
 
     )

@@ -14,13 +14,13 @@ export const StyledCard = styled.div`
     color:#373299;
     
 
-    button{
+    .remove-btn{
         background:none;
         opacity: 0;
     }
 
     &:hover{
-        button{
+        .remove-btn{
             opacity: 1;
         }
         scale: 1.02;

@@ -1,27 +1,37 @@
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-
+import { DirectionsRenderer, GoogleMap, MarkerF } from "@react-google-maps/api";
+import MoveoLogo from '../../assets/images/moveo logo!.svg'
+import { Coords } from "../../services/poke.service";
 
 interface MapComponentProps {
-    apiKey: string
     center: {
         lat: number
         lng: number
     };
     zoom: number
+    customMarker: string,
+    MoveoOfficeLocation: Coords
+    directions: any
 }
 
-const Map = ({ apiKey, center, zoom }: MapComponentProps) => {
+
+
+const Map = ({ center, zoom, customMarker, MoveoOfficeLocation, directions }: MapComponentProps) => {
+
 
     return (
-        <LoadScript googleMapsApiKey={apiKey}>
+        <>
             <GoogleMap
-                mapContainerStyle={{ height: '400px', width: '80%',marginInline:'auto',marginBlock:'10px' }}
+                mapContainerStyle={{ height: '400px', width: '70%', marginInline: 'auto', marginBottom: '10px' }}
                 center={center}
                 zoom={zoom}
-                >
-                <Marker position={center} />
+            >
+                <MarkerF position={center} icon={{ url: customMarker, scaledSize: new window.google.maps.Size(70, 70) }} />
+                <MarkerF position={MoveoOfficeLocation} icon={{ url: MoveoLogo, scaledSize: new window.google.maps.Size(70, 70) }} />
+                {directions && <DirectionsRenderer
+                    directions={directions}
+                />}
             </GoogleMap>
-        </LoadScript>
+        </>
     )
 }
 

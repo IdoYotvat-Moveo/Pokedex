@@ -14,7 +14,7 @@ const PokemonPreview = ({ pokemon, children }: previewProps) => {
             <StyledPreviewContainer>
                 <section className="flex justify-between">
                     <StyledPreviewId>#{pokemon._id}</StyledPreviewId>
-                    <button><img src={deletePokebtn} alt="" /></button>
+                    <button className="remove-btn"><img src={deletePokebtn} alt="" /></button>
                 </section>
                 <section className="flex column">
                     <StyledPokePreviewImg src={pokemon.imgUrl} alt="" />
