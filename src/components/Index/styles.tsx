@@ -23,3 +23,7 @@ export const StyledActionSection = styled.section`
     justify-content: center;
     gap: 10px;
 `
+
+export const StyledLoadingTitle= styled.h3`
+    text-align: center;
+`

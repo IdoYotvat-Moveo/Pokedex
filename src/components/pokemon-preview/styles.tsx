@@ -27,7 +27,7 @@ export const StyledCard = styled.div`
         cursor: pointer;
     }
     @media (max-width:790px ){
-      margin-block-start: 20px;
+      margin-block-start: 10px;
       margin-inline:50px;
    }
 

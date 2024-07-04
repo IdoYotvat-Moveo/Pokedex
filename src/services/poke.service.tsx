@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { PokemonType } from '../pages/detailed-page/styles'
+// import { storageService } from './async-storage-service'
 
 const POKE_DB = 'pokeDB'
 const BASE_URL = 'https://pokeapi.co/api/v2'
@@ -31,16 +32,38 @@ export interface Filter {
     id?: number | null
 }
 
+export interface Boundaries{
+    north:number,
+    south:number,
+    east:number,
+    west:number
+}
+export interface MapEssentials {
+    apiKey: string
+    center: {
+        lat: number
+        lng: number
+    };
+    zoom: number
+}
+
+export interface Coords {
+    lat: number;
+    lng: number;
+}
+
 export const pokeService = {
     getPokemons,
     getPokemonById,
     getPokemonsByName,
     getDefaultFilter,
     getAllPokemonNames,
+    getRandomCenter,
+    // removePokemon,
     debounce
 }
 
-async function getPokemons(amount: number = 25, page: number = 1, filterBy: Filter = getDefaultFilter()): Promise<Pokemon[]> {
+async function getPokemons(amount: number = 30, page: number = 1, filterBy: Filter = getDefaultFilter()): Promise<Pokemon[]> {
     const cachedPokemons = loadFromStorage<Pokemon[]>(POKE_DB) || []
     const startIndex = (page - 1) * amount
     const endIndex = startIndex + amount
@@ -172,6 +195,18 @@ async function convertToDetailedPokemon(data: any): Promise<Pokemon> {
 function getDefaultFilter(): Filter {
     return { text: '' }
 }
+
+//for future remove.
+// function removePokemon(pokemonId:string){
+//     return storageService.remove(POKE_DB,pokemonId)
+// }
+
+function getRandomCenter(bounds: { north: number, south: number, east: number, west: number }){
+    const lat = bounds.south + Math.random() * (bounds.north - bounds.south)
+    const lng = bounds.west + Math.random() * (bounds.east - bounds.west)
+    return { lat, lng }
+}
+
 
 function saveToStorage<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value))
