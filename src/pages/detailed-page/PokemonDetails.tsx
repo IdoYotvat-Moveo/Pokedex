@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Boundaries, Coords, Pokemon, pokeService } from "../../services/poke.service"
-import { DescriptionStatsSection, MapContainer, StyledCardSection, StyledDescription, StyledDetailedContainer, StyledDetailedName, StyledDirectionsbtn, StyledHomePageBtn, StyledMainInfo, StyledPokeType, StyledPseudoElement, StyledSecondaryInfo, StyledStats, StyledSubStats, StyledTypeSection } from "./styles"
+import { DescriptionStatsSection, MapContainer, StyledCardSection, StyledDescription, StyledDetailedContainer, StyledDetailedName, StyledDirectionsbtn, StyledHomePageBtn, StyledLoader, StyledMainInfo, StyledPokeType, StyledPseudoElement, StyledSecondaryInfo, StyledStats, StyledSubStats, StyledTypeSection } from "./styles"
 import { PokemonCard, StyledPreviewId } from "../../components/pokemon-preview/styles"
 import Map from "../../components/map/Map"
 
@@ -67,7 +67,7 @@ const PokemonDetails = () => {
     }
 
 
-    if (!pokemon || !currCenter) return <div className="loader">Loading...</div>
+    if (!pokemon || !currCenter) return <StyledLoader className="loader"></StyledLoader>
     return (
         <>
             <StyledDetailedContainer>

@@ -1,6 +1,8 @@
-import { DirectionsRenderer, GoogleMap, MarkerF } from "@react-google-maps/api";
+import { BicyclingLayer, DirectionsRenderer, GoogleMap, MarkerF, TransitLayer } from "@react-google-maps/api";
 import MoveoLogo from '../../assets/images/moveo logo!.svg'
 import { Coords } from "../../services/poke.service";
+import { useState } from "react";
+import { StyledLayerBtn, StyledMapActions } from "./styles";
 
 interface MapComponentProps {
     center: {
@@ -14,12 +16,16 @@ interface MapComponentProps {
 }
 
 
-
 const Map = ({ center, zoom, customMarker, MoveoOfficeLocation, directions }: MapComponentProps) => {
-
+    const [showTransit, setShowTransit] = useState<boolean>(false)
+    const [showBicycling, setShowBicycling] = useState<boolean>(false)
 
     return (
         <>
+            <StyledMapActions>
+                <StyledLayerBtn onClick={() => setShowTransit(!showTransit)}>Transit</StyledLayerBtn>
+                <StyledLayerBtn onClick={() => setShowBicycling(!showBicycling)}>Bicycling</StyledLayerBtn>
+            </StyledMapActions>
             <GoogleMap
                 mapContainerStyle={{ height: '400px', width: '70%', marginInline: 'auto', marginBottom: '10px' }}
                 center={center}
@@ -30,6 +36,8 @@ const Map = ({ center, zoom, customMarker, MoveoOfficeLocation, directions }: Ma
                 {directions && <DirectionsRenderer
                     directions={directions}
                 />}
+                {showTransit && <TransitLayer />}
+                {showBicycling && <BicyclingLayer />}
             </GoogleMap>
         </>
     )
