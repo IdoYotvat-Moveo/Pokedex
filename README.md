@@ -1,30 +1,49 @@
-# React + TypeScript + Vite
+# Pokédex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This React app allows users to search for Pokémon by name ,view detailed information, and see their locations on Google Maps.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search Pokémon by name
+- View detailed Pokémon information
+- Display Pokémon locations on Google Maps
+- get directions
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React
+- TypeScript
+- Styled Components
+- PokeAPI
+- Google Maps API
 
-- Configure the top-level `parserOptions` property like this:
+## Setup
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Clone the repository and navigate into it:
+
+   ```bash
+   git clone https://https://github.com/IdoYotvat/Pokedex
+   cd Pokedex
+   
+2. Install dependencies:
+
+  ```bash
+  npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+3. Create a .env file in the root directory and add your environment variables:
+
+  ```bash
+  REACT_APP_POKEAPI_URL=https://pokeapi.co/api/v2
+  REACT_APP_GOOGLE_MAPS_API_KEY=your-google-maps-api-key
+  ```
+
+4. Start the development server:
+
+```bash
+npm start
+```
+
+
