@@ -9,31 +9,19 @@ interface FilterProps {
 
 const PokemonFilter = ({ filterBy, onSetFilter }: FilterProps) => {
     const [currFilterBy, setCurrFilterBy] = useState<Filter>(filterBy)
-    const [pokemonNames, setPokemonNames] = useState<string[]>([])
-
     const [recentSearches, setRecentSearches] = useState<string[]>([])
     const [showDropdown, setShowDropdown] = useState(false)
-
     const debouncedSetFilter = useRef(pokeService.debounce((filter: Filter) => { onSetFilter(filter) }, 300)).current
 
     useEffect(() => {
-        fetchPokemonNames()
         const savedSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]')
         setRecentSearches(savedSearches)
     }, [])
 
     useEffect(() => {
         debouncedSetFilter(currFilterBy)
-    }, [currFilterBy, debouncedSetFilter])
+    }, [currFilterBy])
 
-    async function fetchPokemonNames() {
-        try {
-            const names = await pokeService.getAllPokemonNames()
-            setPokemonNames(names)
-        } catch (error) {
-            console.error('Error fetching Pokémon names:', error)
-        }
-    }
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const searchText = event.target.value.trim()
@@ -55,7 +43,6 @@ const PokemonFilter = ({ filterBy, onSetFilter }: FilterProps) => {
         localStorage.setItem('recentSearches', JSON.stringify([]))
         setCurrFilterBy({ text: '' })
     }
-
 
     return (
         <div className="flex justify-center">

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { PokemonType } from '../pages/detailed-page/styles'
-// import { storageService } from './async-storage-service'
 
 const POKE_DB = 'pokeDB'
 const BASE_URL = 'https://pokeapi.co/api/v2'
@@ -31,7 +30,6 @@ export interface Filter {
     text: string
     id?: number | null
 }
-
 export interface Boundaries {
     north: number,
     south: number,
@@ -46,7 +44,6 @@ export interface MapEssentials {
     };
     zoom: number
 }
-
 export interface Coords {
     lat: number;
     lng: number;
@@ -57,7 +54,6 @@ export const pokeService = {
     getPokemonById,
     getPokemonsByName,
     getDefaultFilter,
-    getAllPokemonNames,
     getRandomCenter,
     loadFromStorage,
     saveToStorage,
@@ -96,16 +92,6 @@ async function getPokemons(amount: number = 30, page: number = 1, filterBy: Filt
     }
 }
 
-async function getAllPokemonNames(): Promise<string[]> {
-    try {
-        const response = await axios.get(`${BASE_URL}/pokemon?limit=1000`)
-        return response.data.results.map((pokemon: any) => pokemon.name)
-    } catch (error) {
-        console.error('Error fetching Pokémon names:', error)
-        throw error
-    }
-}
-
 function filterPokemons(pokemons: Pokemon[], filterBy: Filter): Pokemon[] {
     let filteredPokemons = pokemons
 
@@ -114,14 +100,10 @@ function filterPokemons(pokemons: Pokemon[], filterBy: Filter): Pokemon[] {
         filteredPokemons = filteredPokemons.filter(pokemon => pokemon.name.toLowerCase() === searchText)
     }
 
-    //todo future filtering
-    // if (filterBy.id) {
-    //     filteredPokemons = filteredPokemons.filter(pokemon => pokemon._id === filterBy.id?.toString())
-    // }
     return filteredPokemons
 }
 
-export async function getPokemonsByName(name: string): Promise<Pokemon[]> {
+ async function getPokemonsByName(name: string): Promise<Pokemon[]> {
     try {
         //getting all names
         const response = await axios.get(`${BASE_URL}/pokemon?limit=1000`)
@@ -198,12 +180,7 @@ function getDefaultFilter(): Filter {
     return { text: '' }
 }
 
-//for future remove.
-// function removePokemon(pokemonId:string){
-//     return storageService.remove(POKE_DB,pokemonId)
-// }
-
-function getRandomCenter(bounds: { north: number, south: number, east: number, west: number }) {
+function getRandomCenter(bounds: Boundaries) {
     const lat = bounds.south + Math.random() * (bounds.north - bounds.south)
     const lng = bounds.west + Math.random() * (bounds.east - bounds.west)
     return { lat, lng }

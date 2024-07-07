@@ -13,7 +13,7 @@ export const StyledContainer = styled.div`
       display: flex;
       justify-content: center;
     }
-    `
+`
 
 export const StyledLogo = styled.img`
   margin-inline-start: 106px;
@@ -22,7 +22,7 @@ export const StyledLogo = styled.img`
     left: 50px;
     margin: 0;
     }
-  `
+`
 
 export const StyledNavBar = styled.div`
     margin-inline-end: 106px;
@@ -33,7 +33,7 @@ export const StyledNavBar = styled.div`
     @media (max-width:714px){
       display: none;
     }
-    `
+`
     
 export const StyledNavLink = styled(NavLink)`
     padding: 24px;

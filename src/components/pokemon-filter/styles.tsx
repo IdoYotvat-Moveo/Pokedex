@@ -21,7 +21,7 @@ export const StyledInput = styled.input`
  opacity: 0px;
  margin-inline-end:6px;
  padding-inline-start: 10px;
- `
+`
 
 export const StyledSearchbutton = styled.button`
 width: 87px;
@@ -43,28 +43,26 @@ box-shadow: 4px 4px 20px 0px #00000012;
 width: 22vw;
 min-width: 180px;
 border-radius: 10px;
-
 `
 
 export const StyledRecentSearch = styled.span`
     color:#373299 ;
     padding: 15px;
     font-weight: 600;
-    `
+`
 
 export const StyledClearButton = styled.button`
     background-color: transparent;
     color:#373299 ;
     font-weight: 600;
     padding: 18px;
-    `
+`
 
 export const StyledDropItem=styled.div`
 padding: 10px;
 padding-inline: 15px;
 color: #5A5A89;
 border-radius: 10px;
-
 
 &:hover{
     background-color: #e9e8e8;

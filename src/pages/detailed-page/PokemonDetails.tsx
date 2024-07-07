@@ -58,7 +58,7 @@ const PokemonDetails = () => {
                 },
                 (result, status) => {
                     if (status === google.maps.DirectionsStatus.OK) {
-                        setDirections(result); // Set directions data to state
+                        setDirections(result) // Set directions data to state
                     } else {
                         console.error('Directions request failed due to ' + status);
                     }

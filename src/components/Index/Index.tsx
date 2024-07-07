@@ -12,11 +12,7 @@ const Index = () => {
     const AMOUNT = 30
 
     useEffect(() => {
-        if (filterBy.text) {
-            loadFilteredPokemons()
-        } else {
-            loadPokemons()
-        }
+        loadPokemons()
     }, [filterBy])
 
     useEffect(() => {
@@ -26,21 +22,21 @@ const Index = () => {
     }, [page])
 
     async function loadPokemons() {
-        try {
-            let pokemons = await pokeService.getPokemons(AMOUNT, page, filterBy)
-            setPokemons(pokemons)
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
-
-    async function loadFilteredPokemons() {
-        try {
-            const filteredPokemons = await pokeService.getPokemonsByName(filterBy.text)
-            setPokemons(filteredPokemons)
-        } catch (err) {
-            console.log(err)
+        if (filterBy.text) {
+            try {
+                const filteredPokemons = await pokeService.getPokemonsByName(filterBy.text)
+                setPokemons(filteredPokemons)
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            try {
+                let pokemons = await pokeService.getPokemons(AMOUNT, page, filterBy)
+                setPokemons(pokemons)
+            }
+            catch (err) {
+                console.log(err)
+            }
         }
     }
 
@@ -63,7 +59,7 @@ const Index = () => {
 
     function showLess(): void {
         const remainingPokemons = pokemons.length - AMOUNT
-        setPokemons(pokemons.slice(0, remainingPokemons)) // Remove the last 24 pokemons
+        setPokemons(pokemons.slice(0, remainingPokemons)) // remove the last 24 pokemons
     }
 
     function handleLoadMore(): void {
