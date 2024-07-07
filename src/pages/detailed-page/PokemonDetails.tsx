@@ -33,6 +33,8 @@ const PokemonDetails = () => {
     }, [pokemonId])
 
     useEffect(() => {
+        if (pokemon) {
+        }
         setCurrCenter(pokeService.getRandomCenter(telAvivBoundaries))
     }, [])
 

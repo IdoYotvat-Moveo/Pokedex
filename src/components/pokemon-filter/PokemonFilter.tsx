@@ -1,6 +1,6 @@
-import { StyledForm, StyledInput, StyledSearchbutton } from "./styles"
+import { StyledClearButton, StyledDropDowm, StyledDropItem, StyledForm, StyledInput, StyledRecentSearch, StyledSearchbutton } from "./styles"
 import { Filter, pokeService } from "../../services/poke.service"
-import { useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 
 interface FilterProps {
     filterBy: Filter
@@ -10,10 +10,16 @@ interface FilterProps {
 const PokemonFilter = ({ filterBy, onSetFilter }: FilterProps) => {
     const [currFilterBy, setCurrFilterBy] = useState<Filter>(filterBy)
     const [pokemonNames, setPokemonNames] = useState<string[]>([])
-    const debouncedSetFilter = useRef(pokeService.debounce((filter: Filter) => {onSetFilter(filter)}, 300)).current
+
+    const [recentSearches, setRecentSearches] = useState<string[]>([])
+    const [showDropdown, setShowDropdown] = useState(false)
+
+    const debouncedSetFilter = useRef(pokeService.debounce((filter: Filter) => { onSetFilter(filter) }, 300)).current
 
     useEffect(() => {
         fetchPokemonNames()
+        const savedSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]')
+        setRecentSearches(savedSearches)
     }, [])
 
     useEffect(() => {
@@ -34,9 +40,26 @@ const PokemonFilter = ({ filterBy, onSetFilter }: FilterProps) => {
         setCurrFilterBy(prevFilter => ({ ...prevFilter, text: searchText }))
     }
 
+    function handleSearch(ev: FormEvent) {
+        if (ev) ev.preventDefault()
+        if (currFilterBy.text) {
+            const updatedSearches = [currFilterBy.text, ...recentSearches.slice(0, 2)]
+            setRecentSearches(updatedSearches)
+            localStorage.setItem('recentSearches', JSON.stringify(updatedSearches))
+        }
+        setShowDropdown(false)
+    }
+
+    function clearSearches() {
+        setRecentSearches([])
+        localStorage.setItem('recentSearches', JSON.stringify([]))
+        setCurrFilterBy({ text: '' })
+    }
+
+
     return (
         <div className="flex justify-center">
-            <StyledForm>
+            <StyledForm onSubmit={handleSearch}>
                 <label title="search"></label>
                 <StyledInput
                     type="text"
@@ -44,8 +67,23 @@ const PokemonFilter = ({ filterBy, onSetFilter }: FilterProps) => {
                     placeholder="Search Pokemon..."
                     value={currFilterBy.text}
                     onChange={handleChange}
+                    autoComplete="off"
+                    onFocus={() => setShowDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowDropdown(false), 100)}
                 />
-                <StyledSearchbutton>Search</StyledSearchbutton>
+                <StyledSearchbutton onClick={handleSearch}>Search</StyledSearchbutton>
+                {showDropdown && (
+                    <StyledDropDowm>
+                        <div className="flex justify-between justify-center">
+                            <StyledRecentSearch>RECENT SEARCHES</StyledRecentSearch>
+                            <StyledClearButton onClick={clearSearches}>CLEAR</StyledClearButton>
+                        </div>
+                        {recentSearches.map((item, index) => (
+                            <StyledDropItem onClick={() => setCurrFilterBy({ text: item })} key={index + item[0]}>{item}</StyledDropItem>
+                        ))}
+                    </StyledDropDowm>
+                )}
+
             </StyledForm>
         </div>
     )

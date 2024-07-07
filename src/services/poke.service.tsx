@@ -32,11 +32,11 @@ export interface Filter {
     id?: number | null
 }
 
-export interface Boundaries{
-    north:number,
-    south:number,
-    east:number,
-    west:number
+export interface Boundaries {
+    north: number,
+    south: number,
+    east: number,
+    west: number
 }
 export interface MapEssentials {
     apiKey: string
@@ -59,6 +59,8 @@ export const pokeService = {
     getDefaultFilter,
     getAllPokemonNames,
     getRandomCenter,
+    loadFromStorage,
+    saveToStorage,
     // removePokemon,
     debounce
 }
@@ -108,8 +110,8 @@ function filterPokemons(pokemons: Pokemon[], filterBy: Filter): Pokemon[] {
     let filteredPokemons = pokemons
 
     if (filterBy.text) {
-        const regExp = new RegExp(filterBy.text, 'i')
-        filteredPokemons = filteredPokemons.filter(pokemon => regExp.test(pokemon.name))
+        const searchText = filterBy.text.toLowerCase()
+        filteredPokemons = filteredPokemons.filter(pokemon => pokemon.name.toLowerCase() === searchText)
     }
 
     //todo future filtering
@@ -201,12 +203,11 @@ function getDefaultFilter(): Filter {
 //     return storageService.remove(POKE_DB,pokemonId)
 // }
 
-function getRandomCenter(bounds: { north: number, south: number, east: number, west: number }){
+function getRandomCenter(bounds: { north: number, south: number, east: number, west: number }) {
     const lat = bounds.south + Math.random() * (bounds.north - bounds.south)
     const lng = bounds.west + Math.random() * (bounds.east - bounds.west)
     return { lat, lng }
 }
-
 
 function saveToStorage<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value))

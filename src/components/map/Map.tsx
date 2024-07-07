@@ -23,8 +23,8 @@ const Map = ({ center, zoom, customMarker, MoveoOfficeLocation, directions }: Ma
     return (
         <>
             <StyledMapActions>
-                <StyledLayerBtn onClick={() => setShowTransit(!showTransit)}>Transit</StyledLayerBtn>
-                <StyledLayerBtn onClick={() => setShowBicycling(!showBicycling)}>Bicycling</StyledLayerBtn>
+                <StyledLayerBtn onClick={() => setShowTransit(prev=>!prev)}>Transit</StyledLayerBtn>
+                <StyledLayerBtn onClick={() => setShowBicycling(prev=>!prev)}>Bicycling</StyledLayerBtn>
             </StyledMapActions>
             <GoogleMap
                 mapContainerStyle={{ height: '400px', width: '70%', marginInline: 'auto', marginBottom: '10px' }}
