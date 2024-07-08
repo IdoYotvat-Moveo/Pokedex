@@ -1,6 +1,5 @@
 import { PokemonCard, StyledPokePreviewImg, StyledPreviewContainer, StyledPreviewId, StyledPreviewName } from "./styles"
 import { Pokemon } from "../../services/poke.service"
-import deletePokebtn from '../../assets/images/removePoke.svg'
 
 type previewProps = {
     pokemon: Pokemon,
@@ -14,7 +13,6 @@ const PokemonPreview = ({ pokemon, children }: previewProps) => {
             <StyledPreviewContainer>
                 <section className="flex justify-between">
                     <StyledPreviewId>#{pokemon._id}</StyledPreviewId>
-                    <button className="remove-btn"><img src={deletePokebtn} alt="" /></button>
                 </section>
                 <section className="flex column">
                     <StyledPokePreviewImg src={pokemon.imgUrl} alt="" />

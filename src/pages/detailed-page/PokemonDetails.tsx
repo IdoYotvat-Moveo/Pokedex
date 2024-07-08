@@ -52,9 +52,9 @@ const PokemonDetails = () => {
         if (currCenter) {
             directionsService.route(
                 {
-                    origin: new google.maps.LatLng(currCenter.lat, currCenter.lng), // Pokémon location
+                    origin: new google.maps.LatLng(currCenter.lat, currCenter.lng), // Pokemon location
                     destination: new google.maps.LatLng(MoveoOfficeLocation.lat, MoveoOfficeLocation.lng), // Office location
-                    travelMode: google.maps.TravelMode.WALKING, // Can be DRIVING, WALKING, BICYCLING, or TRANSIT
+                    travelMode: google.maps.TravelMode.WALKING, //  DRIVING/WALKING/BICYCLING/TRANSIT
                 },
                 (result, status) => {
                     if (status === google.maps.DirectionsStatus.OK) {
