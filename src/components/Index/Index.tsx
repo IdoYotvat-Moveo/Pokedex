@@ -12,7 +12,7 @@ const Index = () => {
     const AMOUNT = 30
 
     useEffect(() => {
-        loadPokemons()
+        loadPokemons(true)
     }, [filterBy])
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const Index = () => {
         }
     }, [page])
 
-    async function loadPokemons() {
+    async function loadPokemons(isNewFilter = false) {
         if (filterBy.text) {
             try {
                 const filteredPokemons = await pokeService.getPokemonsByName(filterBy.text)
@@ -32,7 +32,7 @@ const Index = () => {
         } else {
             try {
                 let pokemons = await pokeService.getPokemons(AMOUNT, page, filterBy)
-                setPokemons(pokemons)
+                setPokemons(prevPokemons => isNewFilter ? pokemons : [...prevPokemons, ...pokemons])
             }
             catch (err) {
                 console.log(err)
