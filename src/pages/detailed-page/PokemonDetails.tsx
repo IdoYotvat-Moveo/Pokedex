@@ -8,7 +8,7 @@ import Map from "../../components/map/Map"
 
 const telAvivBoundaries: Boundaries = {
     north: 32.1244,
-    south: 32.0150,
+    south: 32.0190,
     east: 34.8247,
     west: 34.7610
 }
